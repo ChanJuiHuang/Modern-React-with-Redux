@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImageCard from './ImageCard'
 
 class ImageList extends React.Component {
   constructor (props) {
@@ -7,19 +8,14 @@ class ImageList extends React.Component {
     this.state = { images: [] }
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setImages(nextProps.images || [])
-  }
-
-  setImages (images) {
-    images = images.map(({ id, urls, description }) => (
-      <img key={id} src={urls.regular} alt={description} />
+  getImages (images) {
+    return images.map(({ id, urls, description }) => (
+      <ImageCard key={id} urls={urls} description={description} />
     ))
-    this.setState({ images })
   }
 
   render () {
-    return <div>{this.state.images}</div>
+    return <div>{this.getImages(this.props.images)}</div>
   }
 }
 
